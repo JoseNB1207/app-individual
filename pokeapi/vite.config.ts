@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  base:'https://github.com/JoseNB1207/app-individual',
   resolve: {
     dedupe: ['react', 'react-dom', 'react-router-dom'],
   },
@@ -11,5 +12,4 @@ export default defineConfig({
     host: true,
     strictPort: false,
   },
-  base: './', // Rutas relativas para que funcione en el proxy de Codespaces
 })
