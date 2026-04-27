@@ -1,4 +1,5 @@
-import { HashRouter as Router, Route, Routes, Link } from 'react-router-dom'
+// App.tsx
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import Home from './home'
 import Equipo from './equipo'
 import Favoritos from './favoritos'
@@ -65,19 +66,10 @@ function App() {
         <Routes>
 
           <Route path="/" element={<Home />} />
-
-
           <Route path="/favoritos" element={<Favoritos />} />
-
           <Route path="/original" element={<Original />} />
-
-
           <Route path="/informativa" element={<Informativa />} />
-
-
           <Route path="/usuario" element={<Usuario />} />
-
-
           <Route path="/equipo/:nombre" element={<Equipo />} />
         </Routes>
       </Router>
