@@ -1,0 +1,263 @@
+/* equipo/style.css */
+/* Estilos del detalle del Pokémon */
+
+/* Contenedor principal */
+.detalle-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+/* Estado de carga */
+.detalle-cargando,
+.detalle-error {
+  text-align: center;
+  padding: 60px 20px;
+  color: #888;
+  font-size: 18px;
+}
+
+/* Botón para volver a Home */
+.btn-volver {
+  display: inline-block;
+  margin: 12px 16px;
+  padding: 8px 16px;
+  background: #cc0000;
+  color: white;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: opacity 0.2s;
+}
+
+.btn-volver:hover {
+  opacity: 0.8;
+}
+
+/* Encabezado de color del tipo */
+.detalle-header {
+  position: relative;
+  padding: 20px;
+  text-align: center;
+  border-radius: 0 0 30px 30px;
+  color: white;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Número del Pokémon (esquina) */
+.detalle-numero {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 14px;
+  opacity: 0.8;
+  font-weight: 600;
+}
+
+/* Nombre grande */
+.detalle-nombre {
+  font-size: 28px;
+  font-weight: 800;
+  text-transform: capitalize;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Botón de favorito */
+.btn-favorito {
+  background: rgba(255,255,255,0.3);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  position: absolute;
+  top: 12px;
+  left: 16px;
+}
+
+.btn-favorito:hover {
+  transform: scale(1.2);
+}
+
+/* Imagen principal del Pokémon */
+.detalle-imagen {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.3));
+  animation: flotar 3s ease-in-out infinite;
+}
+
+/* Animación de flotar para la imagen */
+@keyframes flotar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Badges de tipos grandes */
+.detalle-tipos {
+  display: flex;
+  gap: 8px;
+}
+
+.tipo-badge-grande {
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: white;
+  font-weight: 700;
+  text-transform: capitalize;
+  background: rgba(255,255,255,0.3);
+  border: 2px solid rgba(255,255,255,0.5);
+}
+
+/* Secciones de información */
+.detalle-seccion {
+  background: white;
+  margin: 12px 16px;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Título de cada sección */
+.seccion-titulo {
+  font-size: 16px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 12px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 8px;
+}
+
+/* Grid de información (altura / peso) */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.info-item {
+  text-align: center;
+  padding: 10px;
+  background: #f8f8f8;
+  border-radius: 10px;
+}
+
+.info-label {
+  display: block;
+  font-size: 11px;
+  color: #888;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.info-valor {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+}
+
+/* Lista de habilidades */
+.habilidades-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.habilidad-badge {
+  padding: 6px 12px;
+  background: #e8f4fd;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2980b9;
+  text-transform: capitalize;
+}
+
+/* Habilidad oculta con estilo diferente */
+.habilidad-badge.oculta {
+  background: #fde8f4;
+  color: #c0392b;
+}
+
+.oculta-tag {
+  font-size: 10px;
+  font-weight: 400;
+}
+
+/* Lista de estadísticas */
+.stats-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stat-item {
+  display: grid;
+  grid-template-columns: 80px 40px 1fr;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-nombre {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+}
+
+.stat-valor {
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  text-align: right;
+}
+
+/* Barra de fondo gris */
+.stat-barra-fondo {
+  height: 8px;
+  background: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Barra de relleno de color */
+.stat-barra-relleno {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+/* Lista de movimientos */
+.movimientos-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.movimiento-badge {
+  padding: 4px 10px;
+  background: #f0f4f8;
+  border-radius: 12px;
+  font-size: 11px;
+  color: #555;
+  text-transform: capitalize;
+  border: 1px solid #ddd;
+}
+
+.mas-movimientos {
+  padding: 4px 10px;
+  background: #cc0000;
+  color: white;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}

@@ -1,0 +1,274 @@
+/* original/style.css */
+/* Estilos del juego de adivinar Pokémon */
+
+.juego-container {
+  padding: 16px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Encabezado del juego */
+.juego-header {
+  text-align: center;
+  margin-bottom: 16px;
+  padding: 20px;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border-radius: 16px;
+  color: white;
+}
+
+.juego-titulo {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.juego-subtitulo {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+/* Panel de puntaje */
+.puntaje {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.puntaje-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.puntaje-numero {
+  font-size: 22px;
+  font-weight: 800;
+  color: #cc0000;
+}
+
+.puntaje-label {
+  font-size: 10px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.puntaje-separador {
+  color: #ddd;
+  font-size: 20px;
+}
+
+/* Área principal del juego */
+.juego-area {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.juego-cargando {
+  padding: 40px;
+  color: #888;
+  font-size: 16px;
+}
+
+/* Contenedor de la imagen - posición relative para overlay */
+.imagen-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+/* Imagen del Pokémon */
+.pokemon-silueta {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  transition: filter 0.8s ease; /* Transición suave al revelar */
+}
+
+/* TRUCO PRINCIPAL: filter brightness(0) convierte todo a negro
+   Esto crea la silueta del Pokémon sin necesidad de imágenes especiales */
+.pokemon-silueta.sombra {
+  filter: brightness(0);
+  /* También agregamos un drop-shadow para un efecto más dramático */
+  filter: brightness(0) drop-shadow(0 0 20px rgba(0,0,0,0.2));
+}
+
+/* Cuando se revela, quitamos el filtro */
+.pokemon-silueta.revelado {
+  filter: none;
+  animation: aparecerPokemon 0.8s ease-out;
+}
+
+/* Animación de aparición del Pokémon */
+@keyframes aparecerPokemon {
+  0% {
+    filter: brightness(0);
+    transform: scale(0.9);
+  }
+  50% {
+    filter: brightness(0.5);
+  }
+  100% {
+    filter: none;
+    transform: scale(1);
+  }
+}
+
+/* Signo de pregunta encima de la sombra */
+.pregunta-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.6);
+  text-shadow: 0 0 20px rgba(0,0,0,0.3);
+  pointer-events: none; /* No interfiere con clics */
+  animation: pulsar 2s ease-in-out infinite;
+}
+
+@keyframes pulsar {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* Info del Pokémon revelado */
+.pokemon-revelado-info {
+  margin-bottom: 16px;
+}
+
+.nombre-revelado {
+  font-size: 24px;
+  font-weight: 800;
+  color: #cc0000;
+  text-transform: capitalize;
+}
+
+.tipo-revelado {
+  font-size: 13px;
+  color: #888;
+  text-transform: capitalize;
+}
+
+/* Mensajes de resultado */
+.mensaje {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 16px;
+  animation: aparecer 0.3s ease-out;
+}
+
+@keyframes aparecer {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.mensaje.correcto {
+  background: #e8f8e8;
+  color: #27ae60;
+  border: 2px solid #27ae60;
+}
+
+.mensaje.incorrecto {
+  background: #fde8e8;
+  color: #cc0000;
+  border: 2px solid #cc0000;
+}
+
+/* Controles del juego */
+.juego-controles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Input de respuesta */
+.input-respuesta {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+
+.input-respuesta:focus {
+  border-color: #cc0000;
+}
+
+/* Botón verificar */
+.btn-verificar {
+  width: 100%;
+  padding: 14px;
+  background: #cc0000;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-verificar:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.btn-verificar:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Botón rendirse */
+.btn-rendirse {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  color: #888;
+  border: 1.5px solid #ddd;
+  border-radius: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-rendirse:hover {
+  background: #f5f5f5;
+}
+
+/* Botón siguiente */
+.btn-siguiente {
+  width: 100%;
+  padding: 14px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: opacity 0.2s;
+  animation: aparecer 0.4s ease-out;
+}
+
+.btn-siguiente:hover {
+  opacity: 0.85;
+}
