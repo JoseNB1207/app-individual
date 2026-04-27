@@ -1,14 +1,10 @@
-// favoritos/index.tsx
-// Esta pantalla muestra todos los Pokémon que el usuario marcó como favoritos.
-// Los favoritos se guardan en localStorage con la clave 'favoritos_poke'.
-// Cuando el usuario entra a esta pantalla, leemos localStorage y mostramos la lista.
-// Al hacer clic en un favorito, va al detalle del Pokémon.
+
 
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './styles.css'
 
-// --- INTERFACE ---
+//INTERFACE
 // Para cada Pokémon favorito necesitamos nombre e imagen
 interface PokemonFavorito {
   name: string
@@ -25,11 +21,9 @@ function Favoritos() {
   // Estado de carga mientras pedimos datos a la API
   const [cargando, setCargando] = useState(true)
 
-  // useEffect se ejecuta cuando el componente monta (se muestra por primera vez)
-  // El array vacío [] significa que solo se ejecuta una vez
+ 
   useEffect(() => {
     // Leemos los nombres de favoritos del localStorage
-    // Si no hay nada guardado, usamos un array vacío []
     const nombresGuardados: string[] = JSON.parse(
       localStorage.getItem('favoritos_poke') || '[]'
     )
@@ -46,7 +40,6 @@ function Favoritos() {
         setCargando(true)
 
         // Pedimos los datos de cada Pokémon favorito en paralelo
-        // Promise.all espera a que TODAS las peticiones terminen
         const datos = await Promise.all(
           nombresGuardados.map(async (nombre) => {
             const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${nombre}`)
@@ -96,21 +89,20 @@ function Favoritos() {
 
   return (
     <div className="favoritos-container">
-      {/* Encabezado de la sección */}
       <div className="favoritos-header">
         <h1 className="favoritos-titulo">❤️ Favoritos</h1>
         <p className="favoritos-subtitulo">Tus Pokémon guardados</p>
       </div>
 
-      {/* Estado de carga */}
+
       {cargando ? (
         <div className="favoritos-cargando">
           <p>Cargando favoritos...</p>
         </div>
       ) : favoritos.length === 0 ? (
-        // Si no hay favoritos, mostramos un mensaje y botón para ir a Home
+
         <div className="favoritos-vacio">
-          <div className="vacio-icono">😢</div>
+          <div className="vacio-icono"></div>
           <h2>No tienes Pokémon favoritos</h2>
           <p>Busca Pokémon en el inicio y agrégalos con el botón ❤️</p>
           <Link to="/" className="btn-ir-home">
@@ -119,15 +111,14 @@ function Favoritos() {
         </div>
       ) : (
         <>
-          {/* Contador de favoritos */}
+
           <p className="favoritos-contador">{favoritos.length} Pokémon favoritos</p>
 
-          {/* Lista de Pokémon favoritos */}
+   
           <div className="favoritos-lista">
-            {/* map() recorre cada favorito y genera su card */}
+     
             {favoritos.map((poke) => (
               <div key={poke.name} className="favorito-card">
-                {/* Botón para quitar de favoritos */}
                 <button
                   className="btn-quitar"
                   onClick={() => quitarFavorito(poke.name)}
@@ -136,22 +127,21 @@ function Favoritos() {
                   ❤️
                 </button>
 
-                {/* Link al detalle del Pokémon */}
+
                 <Link to={`/equipo/${poke.name}`} className="favorito-link">
-                  {/* Imagen del Pokémon */}
                   <img
                     src={poke.sprite}
                     alt={poke.name}
                     className="favorito-imagen"
                   />
 
-                  {/* Info del Pokémon */}
+
                   <div className="favorito-info">
                     <span className="favorito-numero">#{String(poke.id).padStart(3, '0')}</span>
                     <h3 className="favorito-nombre">
                       {poke.name.charAt(0).toUpperCase() + poke.name.slice(1)}
                     </h3>
-                    {/* Badges de tipos */}
+
                     <div className="favorito-tipos">
                       {poke.types.map((tipo) => (
                         <span

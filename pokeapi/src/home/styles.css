@@ -1,188 +1,146 @@
-/* home/style.css */
-/* Estilos de la pantalla principal (lista de Pokémon) */
-
-/* Contenedor principal con padding cómodo */
 .home-container {
   padding: 16px;
-  max-width: 900px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
-/* Encabezado con logo y título */
 .home-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
   margin-bottom: 16px;
 }
 
-/* Pokeball del encabezado con animación de rotación */
-.header-pokeball {
-  width: 40px;
-  height: 40px;
-  animation: girar 3s linear infinite;
-}
-
-@keyframes girar {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Título principal */
 .home-titulo {
-  font-size: 28px;
-  font-weight: 800;
+  font-size: 24px;
+  font-weight: 700;
   color: #cc0000;
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
 }
 
-/* Buscador de texto */
 .buscador {
   width: 100%;
-  padding: 12px 16px;
-  border: 2px solid #cc0000;
-  border-radius: 24px;
-  font-size: 15px;
+  padding: 10px 14px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
   outline: none;
+  margin-bottom: 12px;
   background: white;
-  margin-bottom: 14px;
-  transition: box-shadow 0.2s;
+  transition: border-color 0.2s;
 }
 
-/* Al hacer foco en el buscador, resaltamos con sombra */
 .buscador:focus {
-  box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.2);
+  border-color: #cc0000;
 }
 
-/* Contenedor de botones de filtro, con scroll horizontal en móvil */
-.filtros-tipo {
+.filtros-nav {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.btn-filtro-nav {
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: 1.5px solid #ddd;
+  background: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #555;
+  transition: all 0.15s;
+}
+
+.btn-filtro-nav.activo {
+  background: #cc0000;
+  color: white;
+  border-color: #cc0000;
+}
+
+.subfiltros {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  padding: 10px;
+  background: #f8f8f8;
+  border-radius: 8px;
 }
 
-/* Botón individual de tipo */
-.btn-tipo {
+.btn-sub {
   padding: 4px 10px;
-  border-radius: 12px;
-  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: white;
   font-size: 11px;
   font-weight: 600;
   cursor: pointer;
+  color: #444;
   text-transform: capitalize;
-  transition: all 0.2s;
+  transition: all 0.15s;
 }
 
-.btn-tipo:hover {
-  opacity: 0.8;
-  transform: scale(1.05);
+.btn-sub.activo {
+  background: #333;
+  color: white;
+  border-color: #333;
 }
 
-/* Estado de carga */
 .cargando {
   text-align: center;
   padding: 40px;
   color: #888;
-  font-size: 16px;
+  font-size: 14px;
 }
 
-.pokeball-spin {
-  font-size: 40px;
-  display: block;
-  animation: girar 1s linear infinite;
-  margin-bottom: 10px;
-}
-
-/* Contador de resultados */
 .contador {
-  font-size: 12px;
-  color: #888;
-  margin-bottom: 12px;
+  font-size: 11px;
+  color: #aaa;
+  margin-bottom: 8px;
   text-align: right;
 }
 
-/* Grid de cards - 2 columnas en móvil, 3 en pantallas grandes */
-.pokemon-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
-
-@media (min-width: 600px) {
-  .pokemon-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 900px) {
-  .pokemon-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-/* Card individual de Pokémon */
-.pokemon-card {
-  background: white;
-  border-radius: 16px;
-  padding: 16px 12px;
-  text-align: center;
-  text-decoration: none;
-  color: inherit;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+.pokemon-lista {
   display: flex;
   flex-direction: column;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+}
+
+.pokemon-fila {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
   align-items: center;
-  gap: 6px;
-  position: relative;
+  gap: 10px;
+  padding: 10px 16px;
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px solid #f2f2f2;
+  transition: background 0.1s;
 }
 
-/* Al hacer hover la card sube un poco */
-.pokemon-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(204, 0, 0, 0.2);
+.pokemon-fila:last-child {
+  border-bottom: none;
 }
 
-/* Número del Pokémon (esquina superior derecha) */
+.pokemon-fila:hover {
+  background: #fafafa;
+}
+
 .pokemon-numero {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  font-size: 10px;
+  font-size: 12px;
   color: #aaa;
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Imagen del Pokémon */
-.pokemon-imagen {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-}
-
-/* Nombre del Pokémon */
 .pokemon-nombre {
-  font-size: 13px;
-  font-weight: 700;
-  color: #333;
-  text-transform: capitalize;
-}
-
-/* Contenedor de badges de tipos */
-.pokemon-tipos {
-  display: flex;
-  gap: 4px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* Badge de tipo individual */
-.tipo-badge {
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-size: 10px;
-  color: white;
+  font-size: 14px;
   font-weight: 600;
+  color: #222;
+}
+
+.pokemon-tipos-texto {
+  font-size: 11px;
+  color: #888;
   text-transform: capitalize;
 }

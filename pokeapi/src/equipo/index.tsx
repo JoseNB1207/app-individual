@@ -1,16 +1,11 @@
-// equipo/index.tsx
-// Esta pantalla muestra el DETALLE de un Pokémon específico.
-// Usa useParams para leer el nombre del Pokémon desde la URL.
-// Por ejemplo, si la URL es /equipo/pikachu, mostramos los datos de Pikachu.
-// También tiene botón de favoritos usando localStorage.
+
 
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './styles.css'
 
-// --- INTERFACES ---
-// Aquí definimos exactamente qué datos esperamos de la PokéAPI
+//INTERFACES
 
 // Cada estadística base tiene nombre y valor
 interface Stat {

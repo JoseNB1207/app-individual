@@ -1,17 +1,7 @@
-// original/index.tsx
-// Esta sección es el JUEGO de adivinar Pokémon.
-// El juego funciona así:
-//   1. Se muestra la sombra de un Pokémon (imagen con filtro CSS)
-//   2. El usuario escribe el nombre en un input
-//   3. Al hacer clic en "Verificar", se compara la respuesta
-//   4. Si es correcta, se revela la imagen real
-//   5. El botón "Siguiente" carga un nuevo Pokémon aleatorio
-// La sombra se hace con CSS: filter: brightness(0) que pone todo en negro.
-
 import { useState, useEffect } from 'react'
 import './styles.css'
 
-// --- INTERFACES ---
+//INTERFACES
 // Los datos del Pokémon que necesitamos para el juego
 interface PokemonJuego {
   name: string
@@ -38,10 +28,10 @@ function Original() {
   // Lo que el usuario escribe en el input
   const [respuesta, setRespuesta] = useState('')
 
-  // Si el usuario acertó o no (null = no ha respondido aún)
+  // Si el usuario acerto o no
   const [acierto, setAcierto] = useState<boolean | null>(null)
 
-  // Si ya se reveló la imagen (cuando acierta)
+  // Si ya se reveló la imagen
   const [revelado, setRevelado] = useState(false)
 
   // Puntaje: aciertos y intentos
@@ -55,9 +45,9 @@ function Original() {
   const cargarPokemonAleatorio = async () => {
     try {
       setCargando(true)
-      setAcierto(null)      // Reiniciamos el estado de acierto
-      setRevelado(false)    // Ocultamos la imagen
-      setRespuesta('')      // Limpiamos el input
+      setAcierto(null)      
+      setRevelado(false)    
+      setRespuesta('')      
 
       // Math.random() da un número entre 0 y 1
       // Multiplicamos por 898 y redondeamos para obtener un ID entre 1 y 898
@@ -85,7 +75,6 @@ function Original() {
     if (!pokemon || !respuesta.trim()) return
 
     // Comparamos el nombre escrito con el nombre real del Pokémon
-    // Ambos los pasamos a minúsculas para que la comparación no sea sensible a mayúsculas
     // trim() quita espacios al inicio y final de lo que escribió el usuario
     const esCorrecta = respuesta.trim().toLowerCase() === pokemon.name.toLowerCase()
 
@@ -125,13 +114,11 @@ function Original() {
 
   return (
     <div className="juego-container">
-      {/* Encabezado del juego */}
       <div className="juego-header">
         <h1 className="juego-titulo">¿Quién es ese Pokémon?</h1>
         <p className="juego-subtitulo">Adivina el Pokémon por su silueta</p>
       </div>
 
-      {/* Marcador de puntaje */}
       <div className="puntaje">
         <div className="puntaje-item">
           <span className="puntaje-numero">{puntaje.aciertos}</span>
@@ -142,7 +129,7 @@ function Original() {
           <span className="puntaje-numero">{puntaje.intentos}</span>
           <span className="puntaje-label">🎯 Intentos</span>
         </div>
-        {/* Porcentaje de aciertos */}
+
         {puntaje.intentos > 0 && (
           <>
             <div className="puntaje-separador">|</div>
@@ -156,7 +143,7 @@ function Original() {
         )}
       </div>
 
-      {/* Área del juego */}
+  
       <div className="juego-area">
         {cargando ? (
           <div className="juego-cargando">
@@ -164,9 +151,7 @@ function Original() {
           </div>
         ) : pokemon ? (
           <>
-            {/* Imagen del Pokémon */}
-            {/* Si no está revelado, aplicamos la clase 'sombra' que lo oculta */}
-            {/* Si está revelado, mostramos la imagen normal */}
+
             <div className="imagen-wrapper">
               <img
                 src={
@@ -174,18 +159,16 @@ function Original() {
                   pokemon.sprites.front_default
                 }
                 alt={revelado ? pokemon.name : '???'}
-                // La clase 'sombra' aplica filter: brightness(0) que pone todo negro
-                // Eso es el truco para mostrar solo la silueta
                 className={`pokemon-silueta ${revelado ? 'revelado' : 'sombra'}`}
               />
 
-              {/* Efecto de signo de pregunta encima de la sombra */}
+
               {!revelado && (
                 <div className="pregunta-overlay">?</div>
               )}
             </div>
 
-            {/* Si se reveló, mostramos el nombre y tipo */}
+
             {revelado && (
               <div className="pokemon-revelado-info">
                 <h2 className="nombre-revelado">
@@ -198,7 +181,7 @@ function Original() {
               </div>
             )}
 
-            {/* Mensaje de resultado */}
+         
             {acierto === true && (
               <div className="mensaje correcto">
                 🎉 ¡Correcto! ¡Eres un maestro Pokémon!
@@ -206,14 +189,14 @@ function Original() {
             )}
             {acierto === false && revelado && (
               <div className="mensaje incorrecto">
-                😔 Era {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+                Era {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
               </div>
             )}
 
-            {/* Input y botones - solo si no se reveló aún */}
+         
             {!revelado && (
               <div className="juego-controles">
-                {/* Input de respuesta */}
+         
                 <input
                   type="text"
                   className="input-respuesta"
@@ -239,12 +222,12 @@ function Original() {
                   className="btn-rendirse"
                   onClick={rendirse}
                 >
-                  Me rindo 😅
+                  Me rindo
                 </button>
               </div>
             )}
 
-            {/* Botón siguiente - aparece solo después de responder */}
+
             {revelado && (
               <button
                 className="btn-siguiente"
