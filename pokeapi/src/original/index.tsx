@@ -205,7 +205,6 @@ function Original() {
                   onKeyDown={manejarEnter}
                 />
 
-                {/* Botón verificar */}
                 <button
                   className="btn-verificar"
                   onClick={verificarRespuesta}
@@ -214,7 +213,6 @@ function Original() {
                   Verificar
                 </button>
 
-                {/* Botón rendirse */}
                 <button
                   className="btn-rendirse"
                   onClick={rendirse}
