@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './styles.css'
 
-//INTERFACE
 // Para cada Pokémon favorito necesitamos nombre e imagen
 interface PokemonFavorito {
   name: string

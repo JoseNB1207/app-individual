@@ -41,7 +41,6 @@ function Original() {
   const [cargando, setCargando] = useState(true)
 
   // Función para cargar un Pokémon aleatorio de la PokéAPI
-  // Los Pokémon tienen IDs del 1 al 898, elegimos uno al azar
   const cargarPokemonAleatorio = async () => {
     try {
       setCargando(true)
@@ -50,7 +49,6 @@ function Original() {
       setRespuesta('')      
 
       // Math.random() da un número entre 0 y 1
-      // Multiplicamos por 898 y redondeamos para obtener un ID entre 1 y 898
       const idAleatorio = Math.floor(Math.random() * 898) + 1
 
       // Pedimos el Pokémon con ese ID a la API
@@ -65,7 +63,6 @@ function Original() {
   }
 
   // Cargamos un Pokémon al inicio del juego
-  // useEffect con [] solo se ejecuta una vez al montar el componente
   useEffect(() => {
     cargarPokemonAleatorio()
   }, [])
@@ -122,12 +119,12 @@ function Original() {
       <div className="puntaje">
         <div className="puntaje-item">
           <span className="puntaje-numero">{puntaje.aciertos}</span>
-          <span className="puntaje-label">✅ Aciertos</span>
+          <span className="puntaje-label">Aciertos</span>
         </div>
         <div className="puntaje-separador">|</div>
         <div className="puntaje-item">
           <span className="puntaje-numero">{puntaje.intentos}</span>
-          <span className="puntaje-label">🎯 Intentos</span>
+          <span className="puntaje-label">Intentos</span>
         </div>
 
         {puntaje.intentos > 0 && (
@@ -137,7 +134,7 @@ function Original() {
               <span className="puntaje-numero">
                 {Math.round((puntaje.aciertos / puntaje.intentos) * 100)}%
               </span>
-              <span className="puntaje-label">📊 Precisión</span>
+              <span className="puntaje-label">Precisión</span>
             </div>
           </>
         )}
@@ -184,7 +181,7 @@ function Original() {
          
             {acierto === true && (
               <div className="mensaje correcto">
-                🎉 ¡Correcto! ¡Eres un maestro Pokémon!
+                ¡Correcto! ¡Eres un maestro Pokémon!
               </div>
             )}
             {acierto === false && revelado && (

@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import './styles.css'
 
 //INTERFACES
-
 // Cada estadística base tiene nombre y valor
 interface Stat {
   base_stat: number
@@ -59,7 +58,6 @@ interface PokemonDetalle {
 }
 
 function Equipo() {
-  // useParams lee los parámetros de la URL
   // Como la ruta es /equipo/:nombre, aquí obtenemos el nombre del Pokémon
   const { nombre } = useParams<{ nombre: string }>()
 
@@ -72,16 +70,11 @@ function Equipo() {
   // Estado de carga
   const [cargando, setCargando] = useState(true)
 
-  // useEffect se ejecuta cuando el componente carga o cuando cambia el nombre
-  // [nombre] en el array de dependencias hace que se vuelva a ejecutar
-  // si navegamos a otro Pokémon
   useEffect(() => {
     // Si no hay nombre en la URL, no hacemos nada
     if (!nombre) return
 
-    // Verificamos si este Pokémon ya está en favoritos en localStorage
-    // localStorage.getItem nos da el valor guardado (o null si no existe)
-    // JSON.parse convierte el texto guardado de vuelta a un array
+   // verificacion de existencia en el localStorage
     const favoritos: string[] = JSON.parse(localStorage.getItem('favoritos_poke') || '[]')
     setEsFavorito(favoritos.includes(nombre))
 
@@ -89,8 +82,6 @@ function Equipo() {
     const fetchPokemon = async () => {
       try {
         setCargando(true)
-        // Pedimos los datos del Pokémon por su nombre
-        // La API acepta el nombre en minúsculas
         const respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon/${nombre}`)
 
         // Si el Pokémon no existe, la API devuelve error 404
@@ -119,7 +110,6 @@ function Equipo() {
 
     if (favoritos.includes(nombre)) {
       // Si ya está en favoritos, lo quitamos con filter()
-      // filter() devuelve un nuevo array sin el elemento que no queremos
       favoritos = favoritos.filter((fav) => fav !== nombre)
       setEsFavorito(false)
     } else {
@@ -129,7 +119,6 @@ function Equipo() {
     }
 
     // Guardamos el array actualizado en localStorage
-    // JSON.stringify convierte el array a texto para guardarlo
     localStorage.setItem('favoritos_poke', JSON.stringify(favoritos))
   }
 
@@ -166,7 +155,7 @@ function Equipo() {
   if (!pokemon) {
     return (
       <div className="detalle-error">
-        <p>No se encontró el Pokémon 😢</p>
+        <p>No se encontró el Pokémon</p>
         <Link to="/" className="btn-volver">Volver al inicio</Link>
       </div>
     )
@@ -178,20 +167,19 @@ function Equipo() {
   return (
     <div className="detalle-container">
 
-      {/* Botón para volver atrás */}
+      
       <Link to="/" className="btn-volver">← Volver</Link>
 
-      {/* Encabezado con color del tipo del Pokémon */}
+      
       <div className="detalle-header" style={{ backgroundColor: colorPrincipal }}>
-        {/* Número del Pokémon */}
+ 
         <span className="detalle-numero">#{String(pokemon.id).padStart(3, '0')}</span>
 
-        {/* Nombre del Pokémon */}
+    
         <h1 className="detalle-nombre">
           {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
         </h1>
 
-        {/* Botón de favorito - cambia entre corazón lleno y vacío */}
         <button
           className="btn-favorito"
           onClick={toggleFavorito}
@@ -200,14 +188,12 @@ function Equipo() {
           {esFavorito ? '❤️' : '🤍'}
         </button>
 
-        {/* Imagen principal del Pokémon */}
         <img
           src={pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default}
           alt={pokemon.name}
           className="detalle-imagen"
         />
 
-        {/* Badges de tipos */}
         <div className="detalle-tipos">
           {pokemon.types.map((t) => (
             <span
@@ -221,11 +207,11 @@ function Equipo() {
         </div>
       </div>
 
-      {/* Sección de información básica */}
+
       <div className="detalle-seccion">
-        <h2 className="seccion-titulo">📏 Información</h2>
+        <h2 className="seccion-titulo">Información</h2>
         <div className="info-grid">
-          {/* La API da altura en decímetros, convertimos a metros dividiendo entre 10 */}
+   
           <div className="info-item">
             <span className="info-label">Altura</span>
             <span className="info-valor">{(pokemon.height / 10).toFixed(1)} m</span>
@@ -240,7 +226,7 @@ function Equipo() {
 
       {/* Sección de habilidades */}
       <div className="detalle-seccion">
-        <h2 className="seccion-titulo">⚡ Habilidades</h2>
+        <h2 className="seccion-titulo">Habilidades</h2>
         <div className="habilidades-lista">
           {pokemon.abilities.map((hab) => (
             <span
@@ -248,26 +234,23 @@ function Equipo() {
               className={`habilidad-badge ${hab.is_hidden ? 'oculta' : ''}`}
             >
               {hab.ability.name.replace('-', ' ')}
-              {/* Si es habilidad oculta, lo indicamos */}
               {hab.is_hidden && <span className="oculta-tag"> (oculta)</span>}
             </span>
           ))}
         </div>
       </div>
 
-      {/* Sección de estadísticas base */}
       <div className="detalle-seccion">
-        <h2 className="seccion-titulo">📊 Estadísticas</h2>
+        <h2 className="seccion-titulo">Estadísticas</h2>
         <div className="stats-lista">
           {pokemon.stats.map((stat) => (
             <div key={stat.stat.name} className="stat-item">
-              {/* Nombre de la estadística en español */}
               <span className="stat-nombre">
                 {nombresStat[stat.stat.name] || stat.stat.name}
               </span>
-              {/* Valor numérico */}
+
               <span className="stat-valor">{stat.base_stat}</span>
-              {/* Barra de progreso visual - el máximo posible es 255 */}
+ 
               <div className="stat-barra-fondo">
                 <div
                   className="stat-barra-relleno"
@@ -284,15 +267,15 @@ function Equipo() {
 
       {/* Sección de movimientos - mostramos los primeros 20 */}
       <div className="detalle-seccion">
-        <h2 className="seccion-titulo">🥊 Movimientos</h2>
+        <h2 className="seccion-titulo">Movimientos</h2>
         <div className="movimientos-lista">
-          {/* slice(0, 20) toma solo los primeros 20 movimientos */}
+         
           {pokemon.moves.slice(0, 20).map((mov) => (
             <span key={mov.move.name} className="movimiento-badge">
               {mov.move.name.replace(/-/g, ' ')}
             </span>
           ))}
-          {/* Si tiene más de 20 movimientos, mostramos cuántos más hay */}
+         
           {pokemon.moves.length > 20 && (
             <span className="mas-movimientos">
               +{pokemon.moves.length - 20} más
